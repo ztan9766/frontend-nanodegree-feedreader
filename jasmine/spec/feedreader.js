@@ -31,12 +31,26 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        it('feed url is defined', function() {
+            for (const feed of allFeeds) {
+                expect(feed.url).toBeDefined()
+                expect(feed.url).not.toBe('')
+
+            }
+        });
 
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        it('feed name is defined', function() {
+            for (const feed of allFeeds) {
+                expect(feed.name).toBeDefined()
+                expect(feed.name).not.toBe('')
+
+            }
+        });
     });
 
 
@@ -53,6 +67,19 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+    describe('The menu', function() {
+        it('is hidden', function() {
+            expect($('body')[0]).toHaveClass('menu-hidden');
+        });
+
+        it('is working', function() {
+            $('.menu-icon-link').click()
+            expect($('body')[0]).not.toHaveClass('menu-hidden');
+            $('.menu-icon-link').click()
+            expect($('body')[0]).toHaveClass('menu-hidden');
+        });
+
+    })
 
     /* TODO: Write a new test suite named "Initial Entries" */
 
@@ -62,6 +89,15 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+    describe('Initial Entries', function() {
+        beforeEach(function (done) {
+            loadFeed(0,done)
+        })
+
+        it('has child', function() {
+            expect($('.feed').children().length).toBeGreaterThanOrEqual(1);
+        });
+    })
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
@@ -69,4 +105,18 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+    describe('New Feed Selection', function() {
+        beforeEach(function (done) {
+            loadFeed(0,done)
+        })
+
+        it('content has changed', function(done) {
+            var previousTitle = $('.header-title').html()
+            loadFeed(1,function(){
+                expect($('.header-title').html()).not.toBe(previousTitle)
+                done()
+            })
+        });
+    })
 }());
