@@ -10,8 +10,6 @@ There are seven unit test cases:
     - test loadfeed function will load feed into html container
     - test loadfeed function will replace the content after loaded a new feed
 
-
-
 # Introduction
 
 Open index.html file in browser(chrome suggested), all tests will be run automatically. Test result should be 7/7 passed.
